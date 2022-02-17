@@ -22,8 +22,9 @@ class ArticlesController < ApplicationController
 
   # POST /articles or /articles.json
   def create
-    @article = Article.new(article_params)
 
+    @article = Article.new(article_params)
+    @article.user = current_user
     respond_to do |format|
       if @article.save
         format.html { redirect_to article_url(@article), notice: "Article was successfully created." }
@@ -37,6 +38,7 @@ class ArticlesController < ApplicationController
 
   # PATCH/PUT /articles/1 or /articles/1.json
   def update
+    
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to article_url(@article), notice: "Article was successfully updated." }
@@ -50,8 +52,12 @@ class ArticlesController < ApplicationController
 
   # DELETE /articles/1 or /articles/1.json
   def destroy
+    #rajouter par eric
+    @article = Article.find(params[:id])
+    if @article.present?
+    #rajouter par eric
     @article.destroy
-
+    end 
     respond_to do |format|
       format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
       format.json { head :no_content }
@@ -66,6 +72,6 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:video, :image, :price, :description)
+      params.require(:article).permit(:video, :image, :price, :description, :user_id)
     end
 end
