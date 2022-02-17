@@ -11,15 +11,7 @@
   </head>
 
   <body>
-  <ul>
-    <% if user_signed_in? %>
-      <li>Hi, <%user.name%> <</li>
-      <li>Sign Out</li>
-    <% else %>
-      <li>Sign In</li>
-      <li>Sign Up</li>
-    <% end %>
-  </ul>
+
     <%= yield %>
   </body>
 </html>
