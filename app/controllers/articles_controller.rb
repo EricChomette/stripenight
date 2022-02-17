@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[ show edit update destroy ]
-
+  before_action :set_article, only: %i[show]
+  before_action :authenticate_user!
+  before_action :current_user, only: %i[edit update destroy ]
   # GET /articles or /articles.json
   def index
     @articles = Article.all
